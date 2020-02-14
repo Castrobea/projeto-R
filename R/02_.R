@@ -430,4 +430,57 @@ tapply(X = iris$Petal.Width, INDEX = list(iris$Species), FUN = sd)
   ## png
   ##   2
 
-### Modificando detalhes (cores, adicionando valores de R², etc)
+### Modificando detalhes (cores, fontes, adicionando valores de R², etc)
+
+# criando vetor de cores
+  cores <- c("#3B9AB2", "#EBCC2A", "#F21A00")
+
+# criando vetor com o nome das espécies
+  sp <- paste("I.", unique(iris$Species), sep = " ")
+  par(mfrow = c(2, 2),
+      mar = c(4, 1, 1, 1),
+      bty = 'l',
+      las = 1)
+  boxplot(Sepal.Length ~ Species,
+          data = iris,
+          xlab = "",
+          col = cores,
+          xaxt = "n")
+  axis(1, at = 1:3, labels = sp, font = 3)
+  boxplot(Sepal.Width ~ Species,
+          data = iris,
+          xlab = "",
+          col = cores,
+          xaxt = "n")
+  axis(1, at = 1:3, labels = sp, font = 3)
+  boxplot(Petal.Length ~ Species, data = iris,  col = cores,
+          xaxt = "n")
+  axis(1, at = 1:3, labels = sp, font = 3)
+  boxplot(Petal.Width ~ Species,
+          data = iris,
+          col = cores,
+          xaxt = "n")
+  axis(1, at = 1:3, labels = sp, font = 3)
+
+## Gráfico de média com desvio padrão com arrows
+
+  # fixando uma semente de numeros aleatorios para manter o mesmo resultado no sample
+  set.seed(42)
+
+  # criando um data frame com valores medios e desvio padrão de uma variável
+  d2 <- data.frame(name = letters[1:5],
+                   value = sample(seq(4, 15), 5),
+                   sd = c(1, 0.2, 3, 2, 4))
+
+  # Fazendo o plot dos pontos
+  plot(x = 1:5, d2$value, las = 1, bty = 'l',
+       ylim = c(0, 18), pch = 19, xaxt = 'n',
+       xlab = "names", ylab = "value")
+  # Adicionando a configuração do eixo x na mão com a função axis
+  axis(1, at = 1:5, labels = d2$name)
+  # Adicionando os valores de desvio padrão em torno da média com a função arrows
+  arrows(x0 = 1:5,
+         y0 = d2$value + d2$sd,
+         y1 = d2$value - d2$sd, angle = 90, length = 0.05, code = 3)
+
+
